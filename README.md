@@ -2,19 +2,25 @@
 
 Runs [Liquibase](http://www.liquibase.org) migrations on Play app startup.
 
-## Adding to your project
+
+## Adding to your Play project
 
 Add dependency to your `build.sbt`:
 
 ```scala
-resolvers += "TFly Release"SPec at "http://build.ticketfly.com/artifactory/libs-release"
+resolvers += "TFly Release" at "http://build.ticketfly.com/artifactory/libs-release"
 
 credentials += Credentials(Path.userHome / ".artifactory" / ".credentials")
 
 libraryDependencies += "com.ticketfly" %% "play-liquibase" % "0.1"
 ```
 
+No additional code changes are necessary. It used [Play 2.4 Dependency Injection](https://www.playframework.com/documentation/latest/ScalaDependencyInjection)
+to eagerly run migrations on startup.
+
 ## Configuration
+
+Add to `application.conf`:
 
 ```
 liquibase {
