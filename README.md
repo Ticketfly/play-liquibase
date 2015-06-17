@@ -1,9 +1,9 @@
-# Play 2.4 Liquibase Migration
+# Play 2.4 Liquibase Migration Module
 
 Runs [Liquibase](http://www.liquibase.org) migrations on Play app startup.
 
 
-## Adding to your Play project
+## Adding Liquibase Module to your Play project
 
 Add dependency to your `build.sbt`:
 
