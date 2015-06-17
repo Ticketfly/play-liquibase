@@ -79,6 +79,18 @@ You can override name and path to changelog file by setting `liquibase.changelog
 
 For details on using Liquibase, go to: [www.liquibase.org](http://www.liquibase.org)
 
+### Disabling Liquibase migrations
+
+To disable running Liquibase on startup, you can set
+```
+liquibase.enable = false
+```
+
+You can disable Liquibase from command line with `-Dliquibase.enable=false`.
+
+For further detials, see [Play Production Configuration](https://www.playframework.com/documentation/2.4.x/ProductionConfiguration)
+
+
 ## Copyright and License
 
 All code is available to you under the MIT license, available at [http://opensource.org/licenses/MIT](http://opensource.org/licenses/MIT) and also
