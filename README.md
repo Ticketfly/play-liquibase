@@ -1,14 +1,14 @@
-# Play 2.4 Liquibase Migration Module
+# Play 2.4.x Liquibase Migration Module
 
 Runs [Liquibase](http://www.liquibase.org) migrations on Play application startup.
 
 
-## Adding Liquibase Module to your Play project
+## Adding Liquibase Module to your Play Scala project
 
 Add dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.ticketfly" %% "play-liquibase" % "0.1"
+libraryDependencies += "com.ticketfly" %% "play-liquibase" % "0.2"
 ```
 
 No additional code changes are necessary. It uses [Play 2.4 Dependency Injection](https://www.playframework.com/documentation/latest/ScalaDependencyInjection)
@@ -48,7 +48,6 @@ Example changelog.xml:
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
-
 
     <changeSet id="1" author="dragisak">
         <comment>Create a table</comment>

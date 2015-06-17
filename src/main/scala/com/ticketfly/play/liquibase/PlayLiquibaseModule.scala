@@ -11,6 +11,14 @@ import play.api.inject.{Binding, Module}
 import scala.collection.JavaConverters._
 
 /**
+ * Play Liquibase module. Automatically runs Liquibase migrations on Play app startup.
+ *
+ * To add to your Scala Play project:
+ *
+ * ```
+ * libraryDependencies += "com.ticketfly" %% "play-liquibase" % currentVersion
+ * ```
+ *
  * See: [[https://www.playframework.com/documentation/latest/ScalaDependencyInjection Play Scala Dependency Injection]]
  *
  */
@@ -29,7 +37,7 @@ class PlayLiquibase(environment: Environment, config: Configuration) {
   private final val log = Logger(classOf[PlayLiquibase])
 
   // Constructor
-  upgradeSchema(config.getString("app.version").getOrElse("0.0"))
+  upgradeSchema(Some(config.getString("app.version").getOrElse("0.0")))
 
   private def liquibase() = {
 
@@ -66,17 +74,25 @@ class PlayLiquibase(environment: Environment, config: Configuration) {
     } yield new Liquibase(changelog, resourceAccessor, database)
   }
 
-  def upgradeSchema (tag: String): Unit = {
+  /**
+   * Run Liquibase schema upgrade
+   *
+   * @param tag Optionally tag schema version
+   */
+  def upgradeSchema (tag: Option[String] = None): Unit = {
     liquibase() match {
       case Some(lb) =>
         log.info("Running liquibase migrations")
         lb.update(new Contexts())
-        lb.tag(tag)
+        tag.foreach(t => lb.tag(t))
       case None =>
-        log.warn("Liquibase not configured")
+        log.warn("Liquibase is not configured")
     }
   }
 
+  /**
+   * Show pending schema changes in the log but don't run them.
+   */
   def showSql(): Unit = {
     liquibase() match {
       case Some(lb) =>
@@ -84,10 +100,15 @@ class PlayLiquibase(environment: Environment, config: Configuration) {
         lb.update(new Contexts(), writer)
         log.info(writer.toString)
       case None =>
-        log.warn("Liquibase not configured")
+        log.warn("Liquibase is not configured")
     }
   }
 
+  /**
+   * Check if there are pending schema changes.
+   *
+   * @return true if there are changes to be performed
+   */
   def needsUpgrade: Boolean = {
     liquibase() match {
       case Some(lb) =>
@@ -97,19 +118,22 @@ class PlayLiquibase(environment: Environment, config: Configuration) {
         }
         unrunChanges.nonEmpty
       case None =>
-        log.warn("Liquibase not configured")
+        log.warn("Liquibase is not configured")
         false
     }
 
   }
 
+  /**
+   * Force unlock Liquibase tables
+   */
   def unlock(): Unit = {
     liquibase() match {
       case Some(lb) =>
         log.info("Releasing liquibase locks")
         lb.forceReleaseLocks()
       case None =>
-        log.warn("Liquibase not configured")
+        log.warn("Liquibase is not configured")
     }
   }
 
