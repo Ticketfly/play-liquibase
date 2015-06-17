@@ -79,3 +79,10 @@ Place your `changelog.xml` file in your app's `config` directory. That will make
 You can override name and path to changelog file by setting `liquibase.changelog` configuration parameter. Default is `changelog.xml`
 
 For details on using Liquibase, go to: [www.liquibase.org](http://www.liquibase.org)
+
+## Copyright and License
+
+All code is available to you under the MIT license, available at [http://opensource.org/licenses/MIT](http://opensource.org/licenses/MIT) and also
+in the LICENSE file.
+
+Copyright Ticketfly, Inc., 2015.
