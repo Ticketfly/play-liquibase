@@ -11,7 +11,7 @@ resolvers += "TFly Release"SPec at "http://build.ticketfly.com/artifactory/libs-
 
 credentials += Credentials(Path.userHome / ".artifactory" / ".credentials")
 
-libraryDependencies += "com.ticketfly" %% "play-liquibase" % "1.0"
+libraryDependencies += "com.ticketfly" %% "play-liquibase" % "0.1"
 ```
 
 ## Configuration
