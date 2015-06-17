@@ -14,14 +14,3 @@ libraryDependencies ++= Seq(
   "com.typesafe.play" %% "play"           % "2.4.0" % Provided,
   "javax.inject"      % "javax.inject"    % "1"     % Provided
 )
-
-val tflyArtifactory = "http://build.ticketfly.com/artifactory/"
-
-publishTo := {
-  if (isSnapshot.value)
-    Some("tfly-snaphot" at tflyArtifactory + "libs-snapshot-local")
-  else
-    Some("tfly-release" at tflyArtifactory + "libs-release-local")
-}
-
-credentials += Credentials(Path.userHome / ".artifactory" / ".credentials")
