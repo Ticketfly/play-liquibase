@@ -88,7 +88,7 @@ liquibase.enable = false
 
 You can disable Liquibase from command line with `-Dliquibase.enable=false`.
 
-For further detials, see [Play Production Configuration](https://www.playframework.com/documentation/2.4.x/ProductionConfiguration)
+For details on configuring Play app, see [Play Production Configuration](https://www.playframework.com/documentation/2.4.x/ProductionConfiguration)
 
 
 ## Copyright and License
