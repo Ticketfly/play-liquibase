@@ -4,7 +4,7 @@ import java.io.StringWriter
 import javax.inject.Singleton
 
 import liquibase.integration.commandline.CommandLineUtils
-import liquibase.resource.ClassLoaderResourceAccessor
+import liquibase.resource.FileSystemResourceAccessor
 import liquibase.{Contexts, LabelExpression, Liquibase}
 import play.api._
 import play.api.inject.{Binding, Module}
@@ -126,7 +126,10 @@ class PlayLiquibase(environment: Environment, config: Configuration) {
           null,   // liquibaseCatalogName,
           null    // liquibaseSchemaName
         )
-        resourceAccessor = new ClassLoaderResourceAccessor(environment.classLoader)
+        // you can't use ClassLoaderResourceAccessor because Play dist puts conf files both in the jar and dist zip directory. And both are on classpath.
+        // Liquibase throws:
+        // liquibase.exception.ChangeLogParseException: Error Reading Migration File: Found 2 files that match liquibase/changelog.xml
+        resourceAccessor = new FileSystemResourceAccessor(environment.rootPath.getPath)
       } yield new Liquibase(changelog, resourceAccessor, database)
 
       if(liquibaseOpt.isEmpty) {

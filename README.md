@@ -73,9 +73,9 @@ Example changelog.xml:
 </databaseChangeLog>
 ```
 
-Place your `changelog.xml` file in your app's `config` directory. That will make it a part of Play distribution and accessible from classpath.
+Place your `changelog.xml` file in the `conf/liquibase` directory. That will make it a part of Play distribution.
 
-You can override name and path to changelog file by setting `liquibase.changelog` configuration parameter. Default is `changelog.xml`
+You can override name and path to changelog file by setting `liquibase.changelog` configuration parameter. Default is `conf/liquibase/changelog.xml`
 
 For details on using Liquibase, go to: [www.liquibase.org](http://www.liquibase.org)
 
