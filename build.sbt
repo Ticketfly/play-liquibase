@@ -26,8 +26,6 @@ libraryDependencies ++= Seq(
 
 licenses := Seq("MIT" -> url("http://opensource.org/licenses/MIT"))
 
-sonatypeProfileName := "dragisakTfly"
-
 pomExtra in Global := {
   <scm>
     <connection>scm:git:github.com:Ticketfly/play-liquibase.git</connection>
