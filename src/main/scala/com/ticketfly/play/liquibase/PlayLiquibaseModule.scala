@@ -1,6 +1,6 @@
 package com.ticketfly.play.liquibase
 
-import java.io.StringWriter
+import java.io.{File, StringWriter}
 import javax.inject.Singleton
 
 import liquibase.integration.commandline.CommandLineUtils
@@ -27,13 +27,27 @@ class PlayLiquibaseModule extends Module {
 
   override def bindings (environment: Environment, configuration: Configuration): Seq[Binding[_]] = Seq(
     // eagerly bind module so it runs on Play startup
-    bind[PlayLiquibase].to(new PlayLiquibase(environment, configuration)).eagerly()
+    bind[PlayLiquibase].to(new PlayLiquibase(environment.classLoader, environment.rootPath, configuration)).eagerly()
   )
 
 }
 
+/**
+ * Play Liquibase utility.
+ *
+ * To run Liquibase migrations manually:
+ *
+ * {{{
+ *   val liquibase = PlayLiquibase(application)
+ *   liquibase.upgradeSchema
+ * }}}
+ *
+ * @param classLoader Class loader
+ * @param rootPath App root path
+ * @param config App config
+ */
 @Singleton
-class PlayLiquibase(environment: Environment, config: Configuration) {
+class PlayLiquibase(classLoader: ClassLoader, rootPath: File, config: Configuration) {
 
   private final val log = Logger(classOf[PlayLiquibase])
 
@@ -111,7 +125,7 @@ class PlayLiquibase(environment: Environment, config: Configuration) {
         driver      <- driverOpt
         changelog   <- changelogOpt
         database    = CommandLineUtils.createDatabaseObject(
-          environment.classLoader,
+          classLoader,
           url,
           username,
           password,
@@ -129,7 +143,7 @@ class PlayLiquibase(environment: Environment, config: Configuration) {
         // you can't use ClassLoaderResourceAccessor because Play dist puts conf files both in the jar and dist zip directory. And both are on classpath.
         // Liquibase throws:
         // liquibase.exception.ChangeLogParseException: Error Reading Migration File: Found 2 files that match liquibase/changelog.xml
-        resourceAccessor = new FileSystemResourceAccessor(environment.rootPath.getPath)
+        resourceAccessor = new FileSystemResourceAccessor(rootPath.getPath)
       } yield new Liquibase(changelog, resourceAccessor, database)
 
       if(liquibaseOpt.isEmpty) {
@@ -143,4 +157,9 @@ class PlayLiquibase(environment: Environment, config: Configuration) {
     }
   }
 
+}
+
+object PlayLiquibase {
+
+  def apply(app: Application): PlayLiquibase = new PlayLiquibase(app.classloader, app.path, app.configuration)
 }
