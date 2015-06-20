@@ -90,6 +90,43 @@ You can disable Liquibase from command line with `-Dliquibase.enable=false`.
 
 For details on configuring Play app, see [Play Production Configuration](https://www.playframework.com/documentation/2.4.x/ProductionConfiguration)
 
+### Testing With In-memory Database
+
+There is a special options in H2 url to tell H@ to keep schema after Liquibase has finished: `DATABASE_TO_UPPER=false`
+
+Also, you have to make sure that it does not force table name to uppercase with `DATABASE_TO_UPPER=false`
+
+Example:
+
+```scala
+  val appWithMemoryDatabase = FakeApplication(
+    additionalConfiguration = {
+      val driver = "org.h2.Driver"
+      val url = s"jdbc:h2:mem:test${Random.nextInt()}:test;DATABASE_TO_UPPER=false;DB_CLOSE_DELAY=-1"
+      Map(
+        "slick.dbs.default.driver" -> "slick.driver.H2Driver$",
+        "slick.dbs.default.db.driver" -> driver,
+        "slick.dbs.default.db.url" -> url,
+        "slick.dbs.default.db.user" -> "sa",
+        "slick.dbs.default.db.password" -> "",
+        "liquibase.driver" -> driver,
+        "liquibase.url" -> url,
+        "liquibase.user" -> "sa",
+        "liquibase.password" -> ""
+      )
+    }
+  )
+
+  "save and query" in new WithApplication(appWithMemoryDatabase) {
+        ...
+        val postRequest = FakeRequest(POST, "/test").withJsonBody(Json.toJson(payload))
+        val Some(saveResult) = route(postRequest)
+        status(saveResult) must equalTo(OK)
+        ...
+  }
+
+```
+
 
 ## Copyright and License
 
