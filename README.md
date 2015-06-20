@@ -92,7 +92,7 @@ For details on configuring Play app, see [Play Production Configuration](https:/
 
 ### Testing With In-memory Database
 
-There is a special options in H2 url to tell H@ to keep schema after Liquibase has finished: `DATABASE_TO_UPPER=false`
+There is a special options in H2 url to tell H2 to keep schema after Liquibase has finished: `DB_CLOSE_DELAY=-1`
 
 Also, you have to make sure that it does not force table name to uppercase with `DATABASE_TO_UPPER=false`
 
