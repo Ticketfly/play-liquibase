@@ -8,7 +8,7 @@ Runs [Liquibase](http://www.liquibase.org) migrations on Play application startu
 Add dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.ticketfly" %% "play-liquibase" % "0.3"
+libraryDependencies += "com.ticketfly" %% "play-liquibase" % "1.0"
 ```
 
 No additional code changes are necessary. It uses [Play 2.4 Dependency Injection](https://www.playframework.com/documentation/latest/ScalaDependencyInjection)
@@ -37,7 +37,7 @@ liquibase = ${slick.dbs.default.db}
 
 ## Using Liquibase
 
-Liquibase Module uses Liquibase 3.3.x.
+Liquibase Module uses Liquibase 3.4.x.
 
 Example changelog.xml:
 
@@ -47,7 +47,7 @@ Example changelog.xml:
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
     <changeSet id="1" author="dragisak">
         <comment>Create a table</comment>
