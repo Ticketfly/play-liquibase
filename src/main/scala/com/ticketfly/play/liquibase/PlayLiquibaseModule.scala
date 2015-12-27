@@ -4,7 +4,7 @@ import java.io.StringWriter
 import javax.inject.Singleton
 
 import liquibase.integration.commandline.CommandLineUtils
-import liquibase.resource.FileSystemResourceAccessor
+import liquibase.resource.{ClassLoaderResourceAccessor, FileSystemResourceAccessor}
 import liquibase.{Contexts, LabelExpression, Liquibase}
 import play.api._
 import play.api.inject.{Binding, Module}
@@ -110,8 +110,8 @@ class PlayLiquibase(environment: Environment, config: Configuration) {
         password    <- passwordOpt
         driver      <- driverOpt
         changelog   <- changelogOpt
-        database    = CommandLineUtils.createDatabaseObject(
-          environment.classLoader,
+        database          = CommandLineUtils.createDatabaseObject(
+          new ClassLoaderResourceAccessor(environment.classLoader),
           url,
           username,
           password,
@@ -124,12 +124,15 @@ class PlayLiquibase(environment: Environment, config: Configuration) {
           null,   // driverPropertiesFile,
           null,   // propertyProviderClass,
           null,   // liquibaseCatalogName,
-          null    // liquibaseSchemaName
+          null,   // liquibaseSchemaName,
+          null,   // databaseChangeLogTableName
+          null    // databaseChangeLogLockTableName
         )
-        // you can't use ClassLoaderResourceAccessor because Play dist puts conf files both in the jar and dist zip directory. And both are on classpath.
+        // you can't use ClassLoaderResourceAccessor because Play dist puts conf files both in
+        // the jar and in the dist zip directory. And both are on classpath.
         // Liquibase throws:
         // liquibase.exception.ChangeLogParseException: Error Reading Migration File: Found 2 files that match liquibase/changelog.xml
-        resourceAccessor = new FileSystemResourceAccessor(environment.rootPath.getPath)
+        resourceAccessor  = new FileSystemResourceAccessor(environment.rootPath.getPath)
       } yield new Liquibase(changelog, resourceAccessor, database)
 
       if(liquibaseOpt.isEmpty) {
