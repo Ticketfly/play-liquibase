@@ -1,3 +1,5 @@
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ticketfly/play-liquibase_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ticketfly/play-liquibase_2.11)
+
 # Play 2.4.x Liquibase Migration Module
 
 Runs [Liquibase](http://www.liquibase.org) migrations on Play application startup.
