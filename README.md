@@ -1,4 +1,4 @@
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ticketfly/play-liquibase_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ticketfly/play-liquibase_2.11)
+[![Codacy Badge](https://api.codacy.com/project/badge/grade/7577ae541fbe4adc8d07f76f2c88ae06)](https://www.codacy.com/app/dragisak/play-liquibase) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ticketfly/play-liquibase_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ticketfly/play-liquibase_2.11)
 
 # Play 2.4.x Liquibase Migration Module
 
