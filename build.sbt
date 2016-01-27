@@ -12,9 +12,9 @@ organizationHomepage := Some(url("http://www.ticketfly.com"))
 
 description := "Play Framework module for performing Liquibase schema migrations on application startup"
 
-scalaVersion := "2.11.6"
+scalaVersion := "2.11.7"
 
-crossScalaVersions := Seq("2.10.5", "2.11.6")
+crossScalaVersions := Seq("2.10.5", "2.11.7")
 
 libraryDependencies ++= Seq(
   "org.liquibase"     % "liquibase-core"  % "3.4.2",
