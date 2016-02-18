@@ -1,6 +1,6 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/7577ae541fbe4adc8d07f76f2c88ae06)](https://www.codacy.com/app/dragisak/play-liquibase) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ticketfly/play-liquibase_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ticketfly/play-liquibase_2.11) [![Dependencies](https://app.updateimpact.com/badge/692410697593786368/play-liquibase.svg?config=compile)](https://app.updateimpact.com/latest/692410697593786368/play-liquibase)
 
-# Play 2.4.x Liquibase Migration Module
+# Play 2.4+ Liquibase Migration Module
 
 Runs [Liquibase](http://www.liquibase.org) migrations on Play application startup.
 
@@ -13,7 +13,7 @@ Add dependency to your `build.sbt`:
 libraryDependencies += "com.ticketfly" %% "play-liquibase" % "1.0"
 ```
 
-No additional code changes are necessary. It uses [Play 2.4 Dependency Injection](https://www.playframework.com/documentation/latest/ScalaDependencyInjection)
+No additional code changes are necessary. It uses [Play Dependency Injection](https://www.playframework.com/documentation/latest/ScalaDependencyInjection)
 to eagerly run migrations on startup.
 
 ## Configuration
