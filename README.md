@@ -87,7 +87,7 @@ For using `include` and `includeAll` tags place your changelogs in  the `conf/li
 
 Example changelog.xml (if you place your schema changelogs in `conf/liquibase/schema` directory and trigger in `conf/liquibase/triggers` directory):
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
