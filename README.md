@@ -81,6 +81,26 @@ You can override name and path to changelog file by setting `liquibase.changelog
 
 For details on using Liquibase, go to: [www.liquibase.org](http://www.liquibase.org)
 
+### Using `include` and `includeAll` tags
+
+For using `include` and `includeAll` tags place your changelogs in  the `conf/liquibase` directory and start `path` param of tag with `conf/liquibase/`. Set `relativeToChangelogFile` to false.
+
+Example changelog.xml (if you place your schema changelogs in `conf/liquibase/schema` directory and trigger in `conf/liquibase/triggers` directory):
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <includeAll path="conf/liquibase/schema" relativeToChangelogFile="false"/>
+    <include path="conf/liquibase/triggers/trigger-1.xml" relativeToChangelogFile="false"/>
+    
+</databaseChangeLog>
+```
+
 ### Disabling Liquibase migrations
 
 To disable running Liquibase on startup, you can set
