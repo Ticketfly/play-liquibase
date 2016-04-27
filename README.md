@@ -83,8 +83,6 @@ For details on using Liquibase, go to: [www.liquibase.org](http://www.liquibase.
 
 ### Using `include` and `includeAll` tags
 
-For using `include` and `includeAll` tags place your changelogs in  the `conf/liquibase` directory and start `path` param of tag with `conf/liquibase/`. Set `relativeToChangelogFile` to false.
-
 Example changelog.xml (if you place your schema changelogs in `conf/liquibase/schema` directory and trigger in `conf/liquibase/triggers` directory):
 
 ```xml
@@ -95,9 +93,9 @@ Example changelog.xml (if you place your schema changelogs in `conf/liquibase/sc
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <includeAll path="conf/liquibase/schema" relativeToChangelogFile="false"/>
-    <include path="conf/liquibase/triggers/trigger-1.xml" relativeToChangelogFile="false"/>
-    
+    <includeAll path="./schema" relativeToChangelogFile="true"/>
+    <include path="./triggers/trigger-1.xml" relativeToChangelogFile="true"/>
+
 </databaseChangeLog>
 ```
 
