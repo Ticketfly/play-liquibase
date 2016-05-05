@@ -10,7 +10,7 @@ Runs [Liquibase](http://www.liquibase.org) migrations on Play application startu
 Add dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.ticketfly" %% "play-liquibase" % "1.0"
+libraryDependencies += "com.ticketfly" %% "play-liquibase" % "1.1"
 ```
 
 No additional code changes are necessary. It uses [Play Dependency Injection](https://www.playframework.com/documentation/latest/ScalaDependencyInjection)
@@ -39,7 +39,7 @@ liquibase = ${slick.dbs.default.db}
 
 ## Using Liquibase
 
-Liquibase Module uses Liquibase 3.4.x.
+Liquibase Module uses Liquibase 3.5.0
 
 Example changelog.xml:
 
@@ -49,7 +49,7 @@ Example changelog.xml:
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
     <changeSet id="1" author="dragisak">
         <comment>Create a table</comment>
@@ -91,7 +91,7 @@ Example changelog.xml (if you place your schema changelogs in `conf/liquibase/sc
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
     <includeAll path="./schema" relativeToChangelogFile="true"/>
     <include path="./triggers/trigger-1.xml" relativeToChangelogFile="true"/>
