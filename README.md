@@ -99,6 +99,23 @@ Example changelog.xml (if you place your schema changelogs in `conf/liquibase/sc
 </databaseChangeLog>
 ```
 
+### Using contexts
+
+Liquibase contexts can be used to maintain a different set of change sets for different environments or uses.  For example, you may have one set to maintain the production schema 
+and one set to maintain the test schema, along with a small set of test data
+
+Context is an attribute of the change set
+```xml
+<changeSet id="2" author="bob" context="test">
+        ...
+</changeSet>
+```
+
+To run the "test" context only, add to your liquibase configuration in application.conf
+```
+contexts = ["test"]
+```
+
 ### Disabling Liquibase migrations
 
 To disable running Liquibase on startup, you can set
