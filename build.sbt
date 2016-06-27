@@ -17,7 +17,7 @@ scalaVersion := "2.11.8"
 crossScalaVersions := Seq("2.10.5", "2.11.8")
 
 libraryDependencies ++= Seq(
-  "org.liquibase"     % "liquibase-core"  % "3.5.0",
+  "org.liquibase"     % "liquibase-core"  % "3.5.1",
   "com.mattbertolini" % "liquibase-slf4j" % "2.0.0",
   "com.typesafe.play" %% "play"           % "2.4.6" % Provided,
   "javax.inject"      % "javax.inject"    % "1"     % Provided
