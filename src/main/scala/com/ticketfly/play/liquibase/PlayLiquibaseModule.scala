@@ -37,6 +37,8 @@ class PlayLiquibase(environment: Environment, config: Configuration) {
 
   private final val log = Logger(classOf[PlayLiquibase])
 
+  private val contexts = config.getStringList("liquibase.contexts").map(l => new Contexts(l)).getOrElse(new Contexts())
+
   // Constructor
   upgradeSchema(config.getString("app.version"))
 
@@ -49,7 +51,7 @@ class PlayLiquibase(environment: Environment, config: Configuration) {
     liquibase() match {
       case Some(lb) =>
         log.info("Running liquibase migrations")
-        lb.update(new Contexts())
+        lb.update(contexts)
         tag.foreach(t => lb.tag(t))
       case None =>
     }
@@ -62,7 +64,7 @@ class PlayLiquibase(environment: Environment, config: Configuration) {
   def showSql (): Unit = liquibase().foreach {
     lb =>
       val writer = new StringWriter()
-      lb.update(new Contexts(), writer)
+      lb.update(contexts, writer)
       log.info(writer.toString)
   }
 
@@ -73,7 +75,7 @@ class PlayLiquibase(environment: Environment, config: Configuration) {
    * @return true if there are pending changes
    */
   def needsUpgrade: Boolean = liquibase().exists { lb =>
-    val unrunChanges = lb.listUnrunChangeSets(new Contexts(), new LabelExpression()).asScala
+    val unrunChanges = lb.listUnrunChangeSets(contexts, new LabelExpression()).asScala
     unrunChanges.foreach {
       change => log.warn(s"Unrun changeset: ${change.getId}, s{change.getAuthor}, ${change.getDescription}, ${change.getComments}")
     }
