@@ -113,7 +113,7 @@ Context is an attribute of the change set
 
 To run the "test" context only, add to your liquibase configuration in application.conf
 ```
-contexts = ["test"]
+liquibase.contexts = ["test"]
 ```
 
 ### Disabling Liquibase migrations
