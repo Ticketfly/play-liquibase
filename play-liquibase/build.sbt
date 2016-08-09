@@ -39,7 +39,3 @@ pomExtra in Global := {
     </developer>
   </developers>
 }
-
-lazy val testPlay24 = project.in(file("test-play24"))
-
-lazy val testPlay25 = project.in(file("test-play25"))
