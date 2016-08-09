@@ -4,13 +4,24 @@
 
 Runs [Liquibase](http://www.liquibase.org) migrations on Play application startup.
 
+* [Play 2.4  Liquibase Migration Module](#play-24-liquibase-migration-module)
+  * [Adding Liquibase Module to your Play Scala project](#adding-liquibase-module-to-your-play-scala-project)
+  * [Configuration](#configuration)
+  * [Using Liquibase](#using-liquibase)
+    * [Loading changelog files from different location](#loading-changelog-files-from-different-location)
+      * [Loading external changelog files](#loading-external-changelog-files)
+    * [Using include and <code>includeAll</code> tags](#using-include-and-includeall-tags)
+    * [Using contexts](#using-contexts)
+    * [Disabling Liquibase migrations](#disabling-liquibase-migrations)
+    * [Testing With In-memory Database](#testing-with-in-memory-database)
+  * [Copyright and License](#copyright-and-license)
 
 ## Adding Liquibase Module to your Play Scala project
 
 Add dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.ticketfly" %% "play-liquibase" % "1.2"
+libraryDependencies += "com.ticketfly" %% "play-liquibase" % "1.3-SNAPSHOT"
 ```
 
 No additional code changes are necessary. It uses [Play Dependency Injection](https://www.playframework.com/documentation/latest/ScalaDependencyInjection)
@@ -77,9 +88,28 @@ Example changelog.xml:
 
 Place your `changelog.xml` file in the `conf/liquibase` directory. That will make it a part of Play distribution.
 
-You can override name and path to changelog file by setting `liquibase.changelog` configuration parameter. Default is `conf/liquibase/changelog.xml`
+You can override name and path to changelog file by setting `liquibase.changelog` configuration parameter. Default is `liquibase/changelog.xml`
 
 For details on using Liquibase, go to: [www.liquibase.org](http://www.liquibase.org)
+
+### Loading changelog files from different location
+
+By default, play-liquibase module will look for `liquibase/changelog.xml` in the classpath.
+You can override that by specifying a different loader or different location of changelog location.
+
+#### Loading external changelog files
+
+```
+liquibase.loader = FILE 
+liquibase.changelog = /path/to/changelog.xml
+```
+
+Default values are:
+```
+liquibase.loader = CLASSPATH 
+liquibase.changelog = "liquibase/changelog.xml"
+```
+
 
 ### Using `include` and `includeAll` tags
 
