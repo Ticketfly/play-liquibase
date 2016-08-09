@@ -4,7 +4,7 @@ name := "root"
 
 scalaVersion := "2.11.8"
 
-lazy val root = project.in(file("."))
+lazy val playLiquibaseRoot = project.in(file("."))
     .aggregate(playLiquibase, testPlay25)
 
 

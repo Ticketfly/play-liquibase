@@ -13,11 +13,11 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
 
-            <column name="first_name" type="varchar(50)">
+            <column name="first" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
 
-            <column name="last_name" type="varchar(50)">
+            <column name="last" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
 
