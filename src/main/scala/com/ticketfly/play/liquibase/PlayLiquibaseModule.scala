@@ -104,6 +104,7 @@ class PlayLiquibase(environment: Environment, config: Configuration) {
     val usernameOpt     = liquibaseConfOpt.flatMap(_.getString("user"))
     val passwordOpt     = liquibaseConfOpt.flatMap(_.getString("password"))
     val changelogOpt    = liquibaseConfOpt.flatMap(_.getString("changelog"))
+    val loaderOpt       = liquibaseConfOpt.flatMap(_.getString("loader"))
 
     if (enableLiquibase) {
       val liquibaseOpt = for {
@@ -112,6 +113,7 @@ class PlayLiquibase(environment: Environment, config: Configuration) {
         password    <- passwordOpt
         driver      <- driverOpt
         changelog   <- changelogOpt
+        loader      <- loaderOpt
         database          = CommandLineUtils.createDatabaseObject(
           new ClassLoaderResourceAccessor(environment.classLoader),
           url,
@@ -130,11 +132,12 @@ class PlayLiquibase(environment: Environment, config: Configuration) {
           null,   // databaseChangeLogTableName
           null    // databaseChangeLogLockTableName
         )
-        // you can't use ClassLoaderResourceAccessor because Play dist puts conf files both in
-        // the jar and in the dist zip directory. And both are on classpath.
-        // Liquibase throws:
-        // liquibase.exception.ChangeLogParseException: Error Reading Migration File: Found 2 files that match liquibase/changelog.xml
-        resourceAccessor  = new FileSystemResourceAccessor(environment.rootPath.getPath)
+
+        resourceAccessor = loader.trim.toUpperCase match {
+          case "CLASSPATH" => new ClassLoaderResourceAccessor(environment.classLoader)
+          case "FILE"      => new FileSystemResourceAccessor(environment.rootPath.getPath)
+          case _           => throw new IllegalArgumentException(s"Unknown liquibase.loader $loader")
+        }
       } yield new Liquibase(changelog, resourceAccessor, database)
 
       if(liquibaseOpt.isEmpty) {
