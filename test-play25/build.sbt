@@ -13,3 +13,5 @@ libraryDependencies ++= Seq(
 )
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
+
+testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-oDF")
