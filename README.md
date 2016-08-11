@@ -116,6 +116,16 @@ To run the "test" context only, add to your liquibase configuration in applicati
 liquibase.contexts = ["test"]
 ```
 
+
+### Loading changes from the classpath
+
+If your database access code is in a sub-module or library, you may want to keep your change files in, for example, src/main/resources/liquibase of that library.  In this case you can choose to load
+your files from the classpath by specifying the changelog attribute and prepending 'classpath:' to the path.  In the scenario where your master.xml file is located in src/main/resources/liquibase,
+add to your liquibase configuration
+```
+liquibase.changelog = "classpath:liquibase/master.xml"
+```
+
 ### Disabling Liquibase migrations
 
 To disable running Liquibase on startup, you can set

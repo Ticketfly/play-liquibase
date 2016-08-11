@@ -111,7 +111,7 @@ class PlayLiquibase(environment: Environment, config: Configuration) {
         username    <- usernameOpt
         password    <- passwordOpt
         driver      <- driverOpt
-        changelog   <- changelogOpt
+        changelogTemp   <- changelogOpt
         database          = CommandLineUtils.createDatabaseObject(
           new ClassLoaderResourceAccessor(environment.classLoader),
           url,
@@ -134,7 +134,8 @@ class PlayLiquibase(environment: Environment, config: Configuration) {
         // the jar and in the dist zip directory. And both are on classpath.
         // Liquibase throws:
         // liquibase.exception.ChangeLogParseException: Error Reading Migration File: Found 2 files that match liquibase/changelog.xml
-        resourceAccessor  = new FileSystemResourceAccessor(environment.rootPath.getPath)
+        resourceAccessor  = if(changelogTemp.startsWith("classpath:")) new ClassLoaderResourceAccessor() else new FileSystemResourceAccessor(environment.rootPath.getPath)
+        changelog = changelogTemp.replaceFirst("classpath:", "")
       } yield new Liquibase(changelog, resourceAccessor, database)
 
       if(liquibaseOpt.isEmpty) {
