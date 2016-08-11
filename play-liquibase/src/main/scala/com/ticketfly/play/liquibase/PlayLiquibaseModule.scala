@@ -130,11 +130,12 @@ class PlayLiquibase(environment: Environment, config: Configuration) {
           null,   // databaseChangeLogTableName
           null    // databaseChangeLogLockTableName
         )
-        // you can't use ClassLoaderResourceAccessor because Play dist puts conf files both in
-        // the jar and in the dist zip directory. And both are on classpath.
-        // Liquibase throws:
-        // liquibase.exception.ChangeLogParseException: Error Reading Migration File: Found 2 files that match liquibase/changelog.xml
-        resourceAccessor  = if(changelogTemp.startsWith("classpath:")) new ClassLoaderResourceAccessor() else new FileSystemResourceAccessor(environment.rootPath.getPath)
+
+        resourceAccessor  = if(changelogTemp.startsWith("classpath:")) {
+          new ClassLoaderResourceAccessor(environment.classLoader)
+        } else {
+          new FileSystemResourceAccessor(environment.rootPath.getPath)
+        }
         changelog = changelogTemp.replaceFirst("classpath:", "")
       } yield new Liquibase(changelog, resourceAccessor, database)
 
