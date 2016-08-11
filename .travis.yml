@@ -1,0 +1,13 @@
+language: scala
+scala:
+  - 2.11.8
+jdk:
+  - oraclejdk8
+cache:
+  directories:
+    - $HOME/.m2
+    - $HOME/.ivy2
+script:
+  - sbt ++$TRAVIS_SCALA_VERSION '; coverage; test'
+after_success:
+  - sbt ++$TRAVIS_SCALA_VERSION playLiquibase/coverageReport
