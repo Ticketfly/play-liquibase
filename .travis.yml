@@ -11,3 +11,4 @@ script:
   - sbt ++$TRAVIS_SCALA_VERSION '; coverage; test'
 after_success:
   - sbt ++$TRAVIS_SCALA_VERSION playLiquibase/coverageReport
+  - sbt ++$TRAVIS_SCALA_VERSION playLiquibase/codacyCoverage
