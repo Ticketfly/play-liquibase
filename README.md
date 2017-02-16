@@ -25,7 +25,7 @@ Runs [Liquibase](http://www.liquibase.org) migrations on Play application startu
 Add dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.ticketfly" %% "play-liquibase" % "1.3"
+libraryDependencies += "com.ticketfly" %% "play-liquibase" % "1.4"
 ```
 
 No additional code changes are necessary. It uses [Play Dependency Injection](https://www.playframework.com/documentation/latest/ScalaDependencyInjection)
