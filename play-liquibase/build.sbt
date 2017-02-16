@@ -22,7 +22,7 @@ def playVersion(scalaVersion: String) = CrossVersion.partialVersion(scalaVersion
 }
 
 libraryDependencies ++= Seq(
-  "org.liquibase"     % "liquibase-core"  % "3.5.1",
+  "org.liquibase"     % "liquibase-core"  % "3.5.3",
   "com.mattbertolini" % "liquibase-slf4j" % "2.0.0",
   "com.typesafe.play" %% "play"           % playVersion(scalaVersion.value) % Provided,
   "javax.inject"      % "javax.inject"    % "1"                             % Provided

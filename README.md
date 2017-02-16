@@ -54,7 +54,7 @@ liquibase = ${slick.dbs.default.db}
 
 ## Using Liquibase
 
-Liquibase Module uses Liquibase 3.5.1
+Liquibase Module uses Liquibase 3.5.3
 
 Example changelog.xml:
 
