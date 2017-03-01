@@ -31,6 +31,7 @@ Add dependency to your `build.sbt`:
 ```scala
 libraryDependencies += "com.ticketfly" %% "play-liquibase" % "1.4"
 ```
+Current version is built against Scala 2.10, 2.11 and 2.12 and works with Play 2.4 and higher.
 
 No additional code changes are necessary. It uses [Play Dependency Injection](https://www.playframework.com/documentation/latest/ScalaDependencyInjection)
 to eagerly run migrations on startup.
