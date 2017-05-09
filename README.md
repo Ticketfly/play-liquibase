@@ -213,7 +213,6 @@ After setting your credentials, you can do:
 ```
 sbt +publishSigned
 sbt sonatypeReleaseAll
-
 ```
 
 
