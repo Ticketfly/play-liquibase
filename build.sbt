@@ -2,7 +2,7 @@ organization := "com.ticketfly"
 
 name := "root"
 
-scalaVersion := "2.11.8"
+scalaVersion := "2.11.11"
 
 lazy val playLiquibaseRoot = project.in(file("."))
     .aggregate(playLiquibase, testPlay25)

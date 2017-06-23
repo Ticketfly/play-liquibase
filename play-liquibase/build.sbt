@@ -12,9 +12,9 @@ organizationHomepage := Some(url("http://www.ticketfly.com"))
 
 description := "Play Framework module for performing Liquibase schema migrations on application startup"
 
-scalaVersion := "2.11.8"
+scalaVersion := "2.11.11"
 
-crossScalaVersions := Seq("2.10.5", "2.11.8", "2.12.1")
+crossScalaVersions := Seq("2.10.5", "2.11.11", "2.12.2")
 
 def playVersion(scalaVersion: String) = CrossVersion.partialVersion(scalaVersion) match {
   case Some((2, scalaMajor)) if scalaMajor == 12 => "2.6.0-M1"
