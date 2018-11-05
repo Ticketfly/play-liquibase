@@ -17,7 +17,7 @@ scalaVersion := "2.11.11"
 crossScalaVersions := Seq("2.10.5", "2.11.11", "2.12.2")
 
 def playVersion(scalaVersion: String) = CrossVersion.partialVersion(scalaVersion) match {
-  case Some((2, scalaMajor)) if scalaMajor == 12 => "2.6.0"
+  case Some((2, scalaMajor)) if scalaMajor == 12 || scalaMajor == 11 => "2.6.5"
   case _                                         => "2.4.6"
 }
 
