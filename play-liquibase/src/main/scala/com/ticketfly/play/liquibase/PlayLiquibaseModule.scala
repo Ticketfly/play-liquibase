@@ -77,7 +77,7 @@ class PlayLiquibase(environment: Environment, config: Configuration) {
   def needsUpgrade: Boolean = liquibase().exists { lb =>
     val unrunChanges = lb.listUnrunChangeSets(contexts, new LabelExpression()).asScala
     unrunChanges.foreach {
-      change => log.warn(s"Unrun changeset: ${change.getId}, s{change.getAuthor}, ${change.getDescription}, ${change.getComments}")
+      change => log.warn(s"Unrun changeset: ${change.getId}, ${change.getAuthor}, ${change.getDescription}, ${change.getComments}")
     }
     unrunChanges.nonEmpty
   }
