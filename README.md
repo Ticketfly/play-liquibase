@@ -13,7 +13,7 @@ Runs [Liquibase](http://www.liquibase.org) migrations on Play application startu
 * [Play 2.x  Liquibase Migration Module](#play-2x-liquibase-migration-module)
 * [Table Of Contents](#table-of-contents)
 * [Adding Liquibase Module to your Play Scala project](#adding-liquibase-module-to-your-play-scala-project)
-* [Dependency Matrix](#adependency-matrix)
+* [Dependency Matrix](#dependency-matrix)
 * [Configuration](#configuration)
 * [Using Liquibase](#using-liquibase)
   * [Using include and <code>includeAll</code> tags](#using-include-and-includeall-tags)
