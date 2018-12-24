@@ -4,15 +4,16 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ticketfly/play-liquibase_2.12/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ticketfly/play-liquibase_2.12) 
 [![Dependencies](https://app.updateimpact.com/badge/692410697593786368/root.svg?config=compile)](https://app.updateimpact.com/latest/692410697593786368/root)
 
-# Play 2.4+ Liquibase Migration Module
+# Play 2.x+ Liquibase Migration Module
 
 Runs [Liquibase](http://www.liquibase.org) migrations on Play application startup.
 
 ## Table Of Contents
 
-* [Play 2.4  Liquibase Migration Module](#play-24-liquibase-migration-module)
+* [Play 2.x  Liquibase Migration Module](#play-2x-liquibase-migration-module)
 * [Table Of Contents](#table-of-contents)
 * [Adding Liquibase Module to your Play Scala project](#adding-liquibase-module-to-your-play-scala-project)
+* [Dependency Matrix](#dependency-matrix)
 * [Configuration](#configuration)
 * [Using Liquibase](#using-liquibase)
   * [Using include and <code>includeAll</code> tags](#using-include-and-includeall-tags)
@@ -25,18 +26,25 @@ Runs [Liquibase](http://www.liquibase.org) migrations on Play application startu
 * [Copyright and License](#copyright-and-license)
 
 
-
 ## Adding Liquibase Module to your Play Scala project
 
 Add dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.ticketfly" %% "play-liquibase" % "1.4"
+libraryDependencies += "com.ticketfly" %% "play-liquibase" % "<version>"
 ```
 Current version is built against Scala 2.10, 2.11 and 2.12 and works with Play 2.4 and higher.
 
 No additional code changes are necessary. It uses [Play Dependency Injection](https://www.playframework.com/documentation/latest/ScalaDependencyInjection)
 to eagerly run migrations on startup.
+
+## Dependency Matrix 
+
+| Play | Scala        | play-liquibase |
+| -----| -------------| -------------- |
+| 2.4  | 2.10 - 2.12  | 1.5            |
+| 2.5  | 2.10 - 2.12  | 1.5            |
+| 2.6  | 2.11 - 2.12  | 2.0            |
 
 ## Configuration
 
@@ -61,7 +69,7 @@ liquibase = ${slick.dbs.default.db}
 
 ## Using Liquibase
 
-Liquibase Module uses Liquibase 3.5.3
+Liquibase Module uses Liquibase 3.6.2
 
 Example changelog.xml:
 
