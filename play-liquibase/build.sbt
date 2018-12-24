@@ -16,8 +16,6 @@ scalaVersion := "2.11.12"
 
 crossScalaVersions := Seq("2.11.12", "2.12.8")
 
-publishMavenStyle := true
-
 val playVersion =  "2.6.5"
 
 libraryDependencies ++= Seq(
@@ -40,6 +38,10 @@ scalacOptions ++= Seq(
   "-Ywarn-inaccessible",
   "-Xfuture"
 )
+
+publishMavenStyle := true
+
+publishTo := sonatypePublishTo.value
 
 licenses := Seq("MIT" -> url("http://opensource.org/licenses/MIT"))
 
