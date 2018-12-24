@@ -14,18 +14,15 @@ description := "Play Framework module for performing Liquibase schema migrations
 
 scalaVersion := "2.11.12"
 
-crossScalaVersions := Seq("2.10.7", "2.11.12", "2.12.8")
+crossScalaVersions := Seq("2.10.7", "2.11.12")
 
-def playVersion(scalaVersion: String) = CrossVersion.partialVersion(scalaVersion) match {
-  case Some((2, scalaMajor)) if scalaMajor == 12 => "2.5.0"
-  case _                                         => "2.4.6"
-}
+val playVersion = "2.4.6"
 
 libraryDependencies ++= Seq(
   "org.liquibase"     % "liquibase-core"  % "3.6.2",
   "com.mattbertolini" % "liquibase-slf4j" % "2.0.0",
-  "com.typesafe.play" %% "play"           % playVersion(scalaVersion.value) % Provided,
-  "javax.inject"      % "javax.inject"    % "1"                             % Provided
+  "com.typesafe.play" %% "play"           % playVersion % Provided,
+  "javax.inject"      % "javax.inject"    % "1"         % Provided
 )
 
 scalacOptions ++= Seq(

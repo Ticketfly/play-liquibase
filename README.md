@@ -40,11 +40,10 @@ to eagerly run migrations on startup.
 
 ## Dependency Matrix 
 
-| Play | Scala        | play-liquibase |
-| -----| -------------| -------------- |
-| 2.4  | 2.10 - 2.12  | 1.5            |
-| 2.5  | 2.10 - 2.12  | 1.5            |
-| 2.6  | 2.11 - 2.12  | 2.0            |
+| Play      | Scala        | play-liquibase |
+| ----------| -------------| -------------- |
+| 2.4-2.5   | 2.10 - 2.11  | 1.5            |
+| 2.6       | 2.11 - 2.12  | 2.0            |
 
 ## Configuration
 
