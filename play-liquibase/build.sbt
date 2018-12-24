@@ -16,7 +16,7 @@ scalaVersion := "2.11.12"
 
 crossScalaVersions := Seq("2.11.12", "2.12.8")
 
-sonatypeProfileName := "com.ticketfly"
+publishMavenStyle := true
 
 val playVersion =  "2.6.5"
 
