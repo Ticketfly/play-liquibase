@@ -2,7 +2,7 @@ organization := "com.ticketfly"
 
 name := "play-liquibase"
 
-version := "2.0"
+version := "2.1-SNAPSHOT"
 
 homepage := Some(url("https://github.com/Ticketfly/play-liquibase"))
 
