@@ -2,7 +2,7 @@ organization := "com.ticketfly"
 
 name := "play-liquibase"
 
-version := "1.5-SNAPSHOT"
+version := "2.0"
 
 homepage := Some(url("https://github.com/Ticketfly/play-liquibase"))
 
@@ -12,20 +12,17 @@ organizationHomepage := Some(url("http://www.ticketfly.com"))
 
 description := "Play Framework module for performing Liquibase schema migrations on application startup"
 
-scalaVersion := "2.11.11"
+scalaVersion := "2.11.12"
 
-crossScalaVersions := Seq("2.10.5", "2.11.11", "2.12.2")
+crossScalaVersions := Seq("2.11.12", "2.12.8")
 
-def playVersion(scalaVersion: String) = CrossVersion.partialVersion(scalaVersion) match {
-  case Some((2, scalaMajor)) if scalaMajor == 12 || scalaMajor == 11 => "2.6.5"
-  case _                                         => "2.4.6"
-}
+val playVersion =  "2.6.5"
 
 libraryDependencies ++= Seq(
-  "org.liquibase"     % "liquibase-core"  % "3.5.3",
+  "org.liquibase"     % "liquibase-core"  % "3.6.2",
   "com.mattbertolini" % "liquibase-slf4j" % "2.0.0",
-  "com.typesafe.play" %% "play"           % playVersion(scalaVersion.value) % Provided,
-  "javax.inject"      % "javax.inject"    % "1"                             % Provided
+  "com.typesafe.play" %% "play"           % playVersion % Provided,
+  "javax.inject"      % "javax.inject"    % "1"         % Provided
 )
 
 scalacOptions ++= Seq(
