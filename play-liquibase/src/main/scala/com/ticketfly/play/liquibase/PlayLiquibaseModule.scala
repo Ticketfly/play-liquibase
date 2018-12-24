@@ -93,7 +93,7 @@ class PlayLiquibase(environment: Environment, config: Configuration) {
   }
 
 
-  private def liquibase() = {
+  protected def liquibase(): Option[Liquibase] = {
 
     val liquibaseConfOpt = config.getConfig("liquibase")
 
