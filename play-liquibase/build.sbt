@@ -16,6 +16,8 @@ scalaVersion := "2.11.12"
 
 crossScalaVersions := Seq("2.11.12", "2.12.8")
 
+sonatypeProfileName := "com.ticketfly"
+
 val playVersion =  "2.6.5"
 
 libraryDependencies ++= Seq(
