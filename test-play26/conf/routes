@@ -3,8 +3,10 @@
 # ~~~~
 
 # An example controller showing a sample home page
-POST    /set                        @controllers.DbController.set
-GET     /get/:id                    @controllers.DbController.get(id: Long)
+POST    /set1                        @controllers.DbController.set1
+POST    /set2                        @controllers.DbController.set2
+GET     /get1/:id                    @controllers.DbController.get1(id: Long)
+GET     /get2/:id                    @controllers.DbController.get2(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
