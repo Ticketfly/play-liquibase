@@ -60,7 +60,7 @@ Otherwise add to `application.conf`:
 liquibase {
     url      = "jdbc:mysql://localhost/myschema?logger=com.mysql.jdbc.log.Slf4JLogger"
     driver   = "com.mysql.jdbc.Driver"
-    username = "ticketfly"
+    user     = "ticketfly"
     password = "bar123"
 }
 ```
