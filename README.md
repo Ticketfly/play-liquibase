@@ -47,28 +47,42 @@ to eagerly run migrations on startup.
 
 ## Configuration
 
-Add to `application.conf`:
+If only one jdbc connection is defined, that is used by default, no additional configuration needed. E.g. 
+```
+db.default {
+    url      = "jdbc:mysql://localhost/myschema"
+    driver   = "com.mysql.jdbc.Driver"
+}
+```
 
+Otherwise add to `application.conf`:
 ```
 liquibase {
     url      = "jdbc:mysql://localhost/myschema?logger=com.mysql.jdbc.log.Slf4JLogger"
     driver   = "com.mysql.jdbc.Driver"
-    user     = "ticketfly"
+    username = "ticketfly"
     password = "bar123"
 }
-
 ```
 
 If you are using Slick with Play, you can reference Slick config:
-
 ```
 liquibase = ${slick.dbs.default.db}
 ```
 
+Supported optional [liquibase configuration parameters](http://www.liquibase.org/documentation/config_properties.html
+):  
+_changelog, contexts, defaultCatalogName, defaultSchemaName, databaseClass, driverPropertiesFile,
+propertyProviderClass, liquibaseCatalogName, liquibaseSchemaName, 
+databaseChangeLogTableName, databaseChangeLogLockTableName_
+
+To disable liquibase execution set `liquibase.enable=false`
+
+__Note:__ Required parameters are: `url, driver`
 
 ## Using Liquibase
 
-Liquibase Module uses Liquibase 3.6.2
+Liquibase Module works with Liquibase 3.6+
 
 Example changelog.xml:
 
@@ -221,8 +235,6 @@ After setting your credentials, you can do:
 sbt +publishSigned
 sbt sonatypeReleaseAll
 ```
-
-
 
 ## Copyright and License
 

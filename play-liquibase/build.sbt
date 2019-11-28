@@ -21,6 +21,7 @@ val playVersion = "2.6.5"
 libraryDependencies ++= Seq(
   "org.liquibase" % "liquibase-core" % "3.6.2",
   "com.mattbertolini" % "liquibase-slf4j" % "2.0.0",
+  "com.typesafe.play" %% "play-jdbc" % playVersion % Provided,
   "com.typesafe.play" %% "play" % playVersion % Provided,
   "javax.inject" % "javax.inject" % "1" % Provided
 )
