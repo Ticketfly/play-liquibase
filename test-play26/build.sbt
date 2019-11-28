@@ -4,7 +4,7 @@ name := "test-play25"
 
 version := "1.0-SNAPSHOT"
 
-scalaVersion := "2.11.11"
+scalaVersion := "2.11.12"
 
 libraryDependencies ++= Seq(
   "com.typesafe.play" %% "play-slick" % "3.0.3",

@@ -11,15 +11,34 @@ import play.api.test.Helpers._
 class DbControllerTest extends PlaySpec with OneAppPerSuite with Results {
 
   "Db action" must {
-    "insert a record" in {
+    "insert a record in table1" in {
       val newUser = User(None, "John", "Doe")
-      val Some(insert) = route(app, FakeRequest(POST, "/set").withBody(Json.toJson(newUser)))
+      val Some(insert) = route(app, FakeRequest(POST, "/set1").withBody(Json.toJson(newUser)))
 
       status(insert) mustEqual CREATED
 
       val id = contentAsString(insert).toLong
 
-      val Some(select) = route(app, FakeRequest(GET, s"/get/$id"))
+      val Some(select) = route(app, FakeRequest(GET, s"/get1/$id"))
+
+      status(select) mustEqual OK
+
+      val dbUser = contentAsJson(select).as[User]
+
+      dbUser.first mustEqual newUser.first
+      dbUser.last mustEqual newUser.last
+
+    }
+
+    "insert a record in table2" in {
+      val newUser = User(None, "John", "Doe")
+      val Some(insert) = route(app, FakeRequest(POST, "/set2").withBody(Json.toJson(newUser)))
+
+      status(insert) mustEqual CREATED
+
+      val id = contentAsString(insert).toLong
+
+      val Some(select) = route(app, FakeRequest(GET, s"/get2/$id"))
 
       status(select) mustEqual OK
 

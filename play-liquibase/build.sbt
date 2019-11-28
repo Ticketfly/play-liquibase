@@ -14,21 +14,22 @@ description := "Play Framework module for performing Liquibase schema migrations
 
 scalaVersion := "2.11.12"
 
-crossScalaVersions := Seq("2.11.12", "2.12.8")
+crossScalaVersions := Seq("2.11.12", "2.12.10")
 
-val playVersion =  "2.6.5"
+val playVersion = "2.6.5"
 
 libraryDependencies ++= Seq(
-  "org.liquibase"     % "liquibase-core"  % "3.6.2",
+  "org.liquibase" % "liquibase-core" % "3.6.2",
   "com.mattbertolini" % "liquibase-slf4j" % "2.0.0",
-  "com.typesafe.play" %% "play"           % playVersion % Provided,
-  "javax.inject"      % "javax.inject"    % "1"         % Provided
+  "com.typesafe.play" %% "play" % playVersion % Provided,
+  "javax.inject" % "javax.inject" % "1" % Provided
 )
 
 scalacOptions ++= Seq(
   "-feature",
   "-deprecation",
-  "-encoding", "UTF-8",
+  "-encoding",
+  "UTF-8",
   "-unchecked",
   "-Xlint",
   "-Yno-adapted-args",
@@ -46,8 +47,15 @@ publishTo := sonatypePublishTo.value
 licenses := Seq("MIT" -> url("http://opensource.org/licenses/MIT"))
 
 import xerial.sbt.Sonatype._
-sonatypeProjectHosting := Some(GitHubHosting("Ticketfly", "play-liquibase", "dragisak@gmail.com"))
+sonatypeProjectHosting := Some(
+  GitHubHosting("Ticketfly", "play-liquibase", "dragisak@gmail.com")
+)
 
 developers := List(
-  Developer(id="dragisak", name="Dragisa Krsmanovic", email="dragishak@gmail.com", url=url("https://github.com/dragisak"))
+  Developer(
+    id = "dragisak",
+    name = "Dragisa Krsmanovic",
+    email = "dragishak@gmail.com",
+    url = url("https://github.com/dragisak")
+  )
 )

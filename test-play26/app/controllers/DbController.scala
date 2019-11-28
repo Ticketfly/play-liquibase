@@ -13,13 +13,14 @@ import model.UserJson._
 import scala.concurrent.Future
 
 @Singleton
-class DbController @Inject()(dbConfigProvider: DatabaseConfigProvider) extends Controller {
+class DbController @Inject()(dbConfigProvider: DatabaseConfigProvider)
+    extends Controller {
 
   val dbConfig = dbConfigProvider.get[JdbcProfile]
 
   import dbConfig.driver.api._
 
-  class Users(tag: Tag) extends Table[User](tag, "users") {
+  class Table1(tag: Tag) extends Table[User](tag, "table1") {
 
     def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
 
@@ -30,27 +31,65 @@ class DbController @Inject()(dbConfigProvider: DatabaseConfigProvider) extends C
     def * = (id.?, first, last) <> (User.tupled, User.unapply)
   }
 
-  val users = TableQuery[Users]
+  class Table2(tag: Tag) extends Table[User](tag, "table2") {
 
-  def set() = Action.async(BodyParsers.parse.json) { request =>
+    def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
+
+    def first = column[String]("first")
+
+    def last = column[String]("last")
+
+    def * = (id.?, first, last) <> (User.tupled, User.unapply)
+  }
+
+  val table1 = TableQuery[Table1]
+  val table2 = TableQuery[Table2]
+
+  def set1() = Action.async(BodyParsers.parse.json) { request =>
     val userJson = request.body.validate[User]
 
-    userJson fold(
+    userJson fold (
       errors => Future.successful(BadRequest("Bad Request")),
-      user => dbConfig.db.run(users returning users.map(_.id)  += user).map(id => Created(id.toString))
-      )
+      user =>
+        dbConfig.db
+          .run(table1 returning table1.map(_.id) += user)
+          .map(id => Created(id.toString))
+    )
 
   }
 
-  def get(id: Long) = Action.async {
+  def set2() = Action.async(BodyParsers.parse.json) { request =>
+    val userJson = request.body.validate[User]
 
-    val f = dbConfig.db.run(users.filter(_.id === id).result.headOption)
+    userJson fold (
+      errors => Future.successful(BadRequest("Bad Request")),
+      user =>
+        dbConfig.db
+          .run(table2 returning table2.map(_.id) += user)
+          .map(id => Created(id.toString))
+    )
+
+  }
+
+  def get1(id: Long) = Action.async {
+
+    val f = dbConfig.db.run(table1.filter(_.id === id).result.headOption)
 
     f.map {
-      case None => NotFound("Not Found")
+      case None    => NotFound("Not Found")
+      case Some(h) => Ok(Json.toJson(h))
+    }
+
+  }
+
+  def get2(id: Long) = Action.async {
+
+    val f = dbConfig.db.run(table2.filter(_.id === id).result.headOption)
+
+    f.map {
+      case None    => NotFound("Not Found")
       case Some(h) => Ok(Json.toJson(h))
     }
 
   }
 }
-
