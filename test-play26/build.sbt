@@ -1,6 +1,6 @@
 organization := "com.ticketfly"
 
-name := "test-play25"
+name := "test-play26"
 
 version := "1.0-SNAPSHOT"
 
