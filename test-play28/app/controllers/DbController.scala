@@ -1,24 +1,22 @@
 package controllers
 
 import javax.inject.{Inject, Singleton}
-
 import model.User
-import play.api.db.slick.DatabaseConfigProvider
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import play.api.libs.json._
-import play.api.mvc.{Action, BodyParsers, Controller}
-import slick.driver.JdbcProfile
 import model.UserJson._
+import play.api.db.slick.DatabaseConfigProvider
+import play.api.libs.json._
+import play.api.mvc.{BodyParsers, InjectedController}
+import slick.jdbc.JdbcProfile
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class DbController @Inject()(dbConfigProvider: DatabaseConfigProvider)
-    extends Controller {
+class DbController @Inject()(dbConfigProvider: DatabaseConfigProvider, implicit val ec: ExecutionContext)
+    extends InjectedController {
 
   val dbConfig = dbConfigProvider.get[JdbcProfile]
 
-  import dbConfig.driver.api._
+  import dbConfig.profile.api._
 
   class Table1(tag: Tag) extends Table[User](tag, "table1") {
 
@@ -45,7 +43,7 @@ class DbController @Inject()(dbConfigProvider: DatabaseConfigProvider)
   val table1 = TableQuery[Table1]
   val table2 = TableQuery[Table2]
 
-  def set1() = Action.async(BodyParsers.parse.json) { request =>
+  def set1() = Action.async(parse.json) { request =>
     val userJson = request.body.validate[User]
 
     userJson fold (
@@ -58,7 +56,7 @@ class DbController @Inject()(dbConfigProvider: DatabaseConfigProvider)
 
   }
 
-  def set2() = Action.async(BodyParsers.parse.json) { request =>
+  def set2() = Action.async(parse.json) { request =>
     val userJson = request.body.validate[User]
 
     userJson fold (
