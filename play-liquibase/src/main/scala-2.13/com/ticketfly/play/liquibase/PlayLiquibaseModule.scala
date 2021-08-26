@@ -13,7 +13,7 @@ import play.api.db.{DBApi, DatabaseConfig, DefaultDatabase}
 import play.api.inject._
 
 import scala.language.implicitConversions
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 import scala.util.Try
 
 /**
@@ -55,7 +55,7 @@ class PlayLiquibase @Inject()(environment: Environment, config: Configuration, i
    *
    * @param tag Optionally tag schema version
    */
-  def upgradeSchema (tag: Option[String] = None): Unit =
+  def upgradeSchema(tag: Option[String] = None): Unit =
     liquibase() foreach {
       lb =>
         log.info("Running liquibase migrations")
@@ -66,7 +66,7 @@ class PlayLiquibase @Inject()(environment: Environment, config: Configuration, i
   /**
    * Show pending schema changes in the log but don't run them.
    */
-  def showSql (): Unit = liquibase().foreach {
+  def showSql(): Unit = liquibase().foreach {
     lb =>
       val writer = new StringWriter()
       lb.update(contexts, writer)
@@ -100,21 +100,21 @@ class PlayLiquibase @Inject()(environment: Environment, config: Configuration, i
 
   object Param extends Enumeration {
     val contexts,
-		 enable,
-		 changelog,
-		 url,
-		 driver,
-		 user,
-		 password,
-		 defaultCatalogName,
-		 defaultSchemaName,
-		 databaseClass,
-		 driverPropertiesFile,
-		 propertyProviderClass,
-		 liquibaseCatalogName,
-		 liquibaseSchemaName,
-		 databaseChangeLogTableName,
-		 databaseChangeLogLockTableName = Value
+    enable,
+    changelog,
+    url,
+    driver,
+    user,
+    password,
+    defaultCatalogName,
+    defaultSchemaName,
+    databaseClass,
+    driverPropertiesFile,
+    propertyProviderClass,
+    liquibaseCatalogName,
+    liquibaseSchemaName,
+    databaseChangeLogTableName,
+    databaseChangeLogLockTableName = Value
 
     implicit def toStr(v: Param): String = v.toString
 
@@ -123,20 +123,20 @@ class PlayLiquibase @Inject()(environment: Environment, config: Configuration, i
   }
 
   /** get p parameter from cfg.
-	  * If not found use defValue
-	  *
-	  * @param p      parameter get value for
-	  * @param defValue  default value
-	  * @param cfg       configuration the value shall be taken from
-	  * @return null if not set or trimmed to an empty string (null is required for liquibase)
-	  */
-	 def getParam(p: Param, defValue: Option[String] = None)
-	             (implicit cfg: Option[Configuration]): String = {
-	   cfg.flatMap(_.getOptional[String](p))
-	      .orElse(defValue)
-	      .collect { case x if x.trim.nonEmpty => x }
-	      .orNull
-	 }
+   * If not found use defValue
+   *
+   * @param p        parameter get value for
+   * @param defValue default value
+   * @param cfg      configuration the value shall be taken from
+   * @return null if not set or trimmed to an empty string (null is required for liquibase)
+   */
+  def getParam(p: Param, defValue: Option[String] = None)
+              (implicit cfg: Option[Configuration]): String = {
+    cfg.flatMap(_.getOptional[String](p))
+      .orElse(defValue)
+      .collect { case x if x.trim.nonEmpty => x }
+      .orNull
+  }
 
   protected def liquibase(): Option[Liquibase] = {
     var missingRequiredParam = false
@@ -144,9 +144,9 @@ class PlayLiquibase @Inject()(environment: Environment, config: Configuration, i
     /** get p parameter from cfg.
      * If not found use defValue
      *
-     * @param p         parameter get value for
-     * @param defValue  default value
-     * @param cfg       configuration the value shall be taken from
+     * @param p        parameter get value for
+     * @param defValue default value
+     * @param cfg      configuration the value shall be taken from
      * @return null if not set or trimmed to an empty string
      */
     def getRequiredParam(p: Param, defValue: Option[String] = None)
@@ -209,10 +209,11 @@ class PlayLiquibase @Inject()(environment: Environment, config: Configuration, i
       Some(new Liquibase(changelog.replaceFirst(Param.classpathPrefix, ""), resourceAccessor, database))
     }
   }
-	/** Get the db parameters from the configuration if only one is defined */
-  protected def singleJdbcDatabaseConfig: Option[DatabaseConfig]  = {
+
+  /** Get the db parameters from the configuration if only one is defined */
+  protected def singleJdbcDatabaseConfig: Option[DatabaseConfig] = {
     Try(injector.instanceOf(classOf[DBApi])).toOption.map { dbApi =>
-      val dbs = dbApi.databases
+      val dbs = dbApi.databases()
       if (dbs.length == 1) {
         dbs.head match {
           case db: DefaultDatabase => db.databaseConfig

@@ -4,3 +4,5 @@ target
 sonatype.sbt
 .bloop
 .metals
+
+logs/

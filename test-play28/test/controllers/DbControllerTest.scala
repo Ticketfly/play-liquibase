@@ -2,13 +2,14 @@ package controllers
 
 import model.User
 import model.UserJson._
-import org.scalatestplus.play.{OneAppPerSuite, PlaySpec}
+import org.scalatestplus.play.PlaySpec
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.Json
 import play.api.mvc.Results
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 
-class DbControllerTest extends PlaySpec with OneAppPerSuite with Results {
+class DbControllerTest extends PlaySpec with GuiceOneAppPerSuite with Results {
 
   "Db action" must {
     "insert a record in table1" in {

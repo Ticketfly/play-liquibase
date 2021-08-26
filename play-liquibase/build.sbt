@@ -12,11 +12,11 @@ organizationHomepage := Some(url("http://www.ticketfly.com"))
 
 description := "Play Framework module for performing Liquibase schema migrations on application startup"
 
-scalaVersion := "2.11.12"
+scalaVersion := "2.12.14"
 
-crossScalaVersions := Seq("2.11.12", "2.12.10")
+crossScalaVersions := Seq("2.12.14", "2.13.6")
 
-val playVersion = "2.6.5"
+val playVersion = "2.8.7"
 
 libraryDependencies ++= Seq(
   "org.liquibase" % "liquibase-core" % "3.6.2",
@@ -33,13 +33,17 @@ scalacOptions ++= Seq(
   "UTF-8",
   "-unchecked",
   "-Xlint",
-  "-Yno-adapted-args",
   "-Ywarn-dead-code",
   "-Ywarn-numeric-widen",
-  "-Ywarn-value-discard",
-  "-Ywarn-inaccessible",
-  "-Xfuture"
+  "-Ywarn-value-discard"
 )
+
+scalacOptions ++= {
+  CrossVersion.partialVersion(scalaVersion.value) match {
+    case Some((2, n)) if n <= 12 => Seq("-Yno-adapted-args", "-Ywarn-inaccessible", "-Xfuture")
+    case _ => Seq("-Ymacro-annotations")
+  }
+}
 
 publishMavenStyle := true
 
